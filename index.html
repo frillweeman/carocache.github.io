@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			* {
+				font-family: sans-serif;
+			}
+			
+			#compass {
+				font-size: 3em;
+				text-align: center;
+			}
+			
+			#comp {
+				width: 100%;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="compass"></h1>
+		<img id="comp" src="carocompass.png" />
+		<script>	
+			compass = document.querySelector("#comp");
+			
+			navigator.geolocation.getCurrentPosition(function(pos) {
+				alert(pos.coords.latitude + " " + pos.coords.longitude);
+			});
+			
+			if (window.DeviceOrientationEvent) {
+			  // Listen for the deviceorientation event and handle the raw data
+			  window.addEventListener('deviceorientation', function(eventData) {
+			    var compassdir;
+			
+			    if(event.webkitCompassHeading) {
+			      // Apple works only with this, alpha doesn't work
+			      compassdir = event.webkitCompassHeading;  
+			    }
+			    else compassdir = event.alpha;
+			    
+			    compass.style.transform = "rotate(" + -compassdir + "deg)";
+			    
+			  });
+			}
+		</script>
+	</body>
+<!-- 	
+	- waypoints
+	- landmarks for navigation
+	- distance
+	- street names
+	- google maps routing
+	 -->
+</html>
